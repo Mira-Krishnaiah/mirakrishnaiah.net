@@ -1,2 +1,6 @@
 spec-extracted/
 *.ps1
+*.docx
+CLAUDE.md
+The Missfits*
+.claude/
