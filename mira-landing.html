@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Krishnaiah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────────── */
+:root {
+  --bg:        #f5f2ec;
+  --bg2:       #edeae2;
+  --ink:       #1a1814;
+  --ink2:      #3d3a34;
+  --ink3:      #7a756a;
+  --ink4:      #b0aa9e;
+  --rule:      #d4cfc6;
+  --metal:     #8a9aaa;
+  --metal2:    #c8d4dc;
+  --sapphire:  #2455a4;
+  --amber:     #c47c1a;
+  --emerald:   #1a7a4a;
+  --ruby:      #a42424;
+  --accept:    #1a7a4a;
+  --reject:    #a42424;
+  --active:    #2455a4;
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg:        #141210;
+  --bg2:       #1c1a17;
+  --ink:       #f0ece4;
+  --ink2:      #c8c4bc;
+  --ink3:      #7a7570;
+  --ink4:      #4a4640;
+  --rule:      #2a2720;
+  --metal:     #6a7a8a;
+  --metal2:    #2a3540;
+  --sapphire:  #4a7fd4;
+  --amber:     #d4962a;
+  --emerald:   #2a9a5a;
+  --ruby:      #c43434;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ─────────────────────────────────────────────
+   CURSOR
+───────────────────────────────────────────── */
+#cur {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s, background .15s;
+}
+
+
+/* ─────────────────────────────────────────────
+   PAPER TEXTURE
+───────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  background: transparent;
+}
+
+.nav-sig {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--ink3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .2s;
+  cursor: none;
+}
+.nav-sig:hover { color: var(--sapphire); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--ink3);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color .2s;
+  cursor: none;
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--sapphire);
+  transition: width .25s ease;
+}
+.nav-link:hover { color: var(--sapphire); }
+.nav-link:hover::after { width: 100%; }
+
+/* theme toggle */
+#theme-btn {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink3);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.7rem;
+  cursor: none;
+  transition: all .2s;
+}
+#theme-btn:hover {
+  border-color: var(--ink3);
+  color: var(--ink);
+}
+
+/* ─────────────────────────────────────────────
+   DRAWING FRAME — main canvas area
+───────────────────────────────────────────── */
+.drawing-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Blueprint grid — very subtle */
+.drawing-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.35;
+}
+
+/* Corner registration marks */
+.reg {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-color: var(--ink4);
+  border-style: solid;
+  opacity: 0.5;
+}
+.reg-tl { top: 3rem; left: 3rem; border-width: 1px 0 0 1px; }
+.reg-tr { top: 3rem; right: 3rem; border-width: 1px 1px 0 0; }
+.reg-bl { bottom: 3rem; left: 3rem; border-width: 0 0 1px 1px; }
+.reg-br { bottom: 3rem; right: 3rem; border-width: 0 1px 1px 0; }
+
+/* Sheet title block — bottom right */
+.title-block {
+  position: absolute;
+  bottom: 3rem; right: 3rem;
+  text-align: right;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.5s forwards;
+}
+
+.title-block-name {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.title-block-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--ink2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+}
+
+.title-block-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin: 0.6rem 0;
+}
+
+.title-block-meta {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--ink4);
+  letter-spacing: 0.1em;
+}
+
+/* Drawing number — bottom left */
+.drawing-number {
+  position: absolute;
+  bottom: 3rem; left: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--ink4);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.8s forwards;
+}
+
+/* ─────────────────────────────────────────────
+   MARGIN ANNOTATION
+───────────────────────────────────────────── */
+.margin-note {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-style: italic;
+  color: var(--ink4);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  max-width: 140px;
+  opacity: 0;
+  animation: fadeIn 1s ease 2s forwards;
+  cursor: default;
+}
+.margin-note.left { text-align: right; }
+.margin-note-1 {
+  top: 38%; left: 2.5rem;
+  text-align: right;
+}
+.margin-note-2 {
+  top: 55%; right: 2.5rem;
+  text-align: left;
+}
+
+
+
+/* ─────────────────────────────────────────────
+   AUTOMATON CANVAS
+───────────────────────────────────────────── */
+#dfa-canvas {
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 1.2s ease 0.4s forwards;
+}
+
+/* ─────────────────────────────────────────────
+   INPUT TERMINAL
+───────────────────────────────────────────── */
+.terminal {
+  position: absolute;
+  bottom: 13rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease 2.2s forwards;
+}
+
+.terminal-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink4);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+#dfa-input {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  width: 160px;
+  padding: 0.3rem 0.5rem;
+  text-align: center;
+  outline: none;
+  cursor: none;
+  transition: border-color .2s;
+  caret-color: var(--sapphire);
+}
+#dfa-input:focus { border-bottom-color: var(--sapphire); }
+#dfa-input::placeholder { color: var(--ink4); letter-spacing: 0.1em; }
+
+#dfa-run {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink3);
+  padding: 0.35rem 0.8rem;
+  cursor: none;
+  transition: all .2s;
+}
+#dfa-run:hover {
+  border-color: var(--sapphire);
+  color: var(--sapphire);
+}
+
+#dfa-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  margin-top: 0.6rem;
+  height: 1em;
+  transition: color .3s;
+}
+.status-accept { color: var(--accept); }
+.status-reject { color: var(--reject); }
+.status-idle   { color: var(--ink4); }
+
+/* ─────────────────────────────────────────────
+   DIMENSION LINES  (SVG overlay)
+───────────────────────────────────────────── */
+#dim-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.6s forwards;
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-sig">MK</a>
+  <div class="nav-right">
+    <a href="workbench.html" class="nav-link">Workbench</a>
+    <a href="resume.html" class="nav-link">Resume</a>
+    <button id="theme-btn">◐ Dark</button>
+  </div>
+</nav>
+
+<!-- MAIN DRAWING FRAME -->
+<div class="drawing-frame">
+
+  <!-- Registration marks -->
+  <div class="reg reg-tl"></div>
+  <div class="reg reg-tr"></div>
+  <div class="reg reg-bl"></div>
+  <div class="reg reg-br"></div>
+
+  <!-- Dimension line SVG overlay -->
+  <svg id="dim-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <!-- DFA Canvas -->
+  <canvas id="dfa-canvas"></canvas>
+
+  <!-- Margin annotations -->
+  <div class="margin-note margin-note-1">
+    state machines<br>all the way<br>down
+  </div>
+
+  <div class="margin-note margin-note-2">
+    δ(q, σ) → q′<br>
+    <span style="color:var(--ink4);font-size:0.5rem;">transitions fire<br>on each character</span>
+  </div>
+
+  <!-- Input terminal -->
+  <div class="terminal">
+    <div class="terminal-label">Input string ↓</div>
+    <div class="terminal-input-row">
+      <input id="dfa-input" type="text" maxlength="12" placeholder="type anything" autocomplete="off" spellcheck="false">
+      <button id="dfa-run">Run</button>
+    </div>
+    <div id="dfa-status" class="status-idle">— waiting for input —</div>
+  </div>
+
+  <!-- Title block -->
+  <div class="title-block">
+    <div class="title-block-name">Mira Krishnaiah</div>
+    <div class="title-block-rule"></div>
+    <div class="title-block-sub">AI + Mechanical Engineering · UPenn</div>
+    <div style="height:0.4rem"></div>
+    <div class="title-block-meta">DWG NO. MK–001 · REV A</div>
+  </div>
+
+  <!-- Drawing number -->
+  <div class="drawing-number">
+    SCALE 1:1 · SHEET 1 OF 3<br>
+    <span style="opacity:0.6">© 2025 MIRA KRISHNAIAH</span>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  CURSOR
+// ═══════════════════════════════════════════════
+const cur = document.getElementById('cur');
+let mx = 0, my = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px';
+  cur.style.top  = my + 'px';
+});
+
+document.querySelectorAll('a, button, input, .margin-note').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width = cur.style.height = '14px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width = cur.style.height = '8px'; });
+});
+
+// ═══════════════════════════════════════════════
+//  THEME
+// ═══════════════════════════════════════════════
+const themeBtn = document.getElementById('theme-btn');
+let dark = false;
+themeBtn.addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  themeBtn.textContent = dark ? '◑ Light' : '◐ Dark';
+  drawDFA(); // redraw with new colors
+});
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ═══════════════════════════════════════════════
+//  DFA DEFINITION
+//  Accepts exactly "MIRA" (case-insensitive)
+// ═══════════════════════════════════════════════
+const STATES = [
+  { id: 0, label: 'q₀', x: 0,   y: 0,   start: true,  accept: false },
+  { id: 1, label: 'q₁', x: 1,   y: 0,   start: false, accept: false },
+  { id: 2, label: 'q₂', x: 2,   y: 0,   start: false, accept: false },
+  { id: 3, label: 'q₃', x: 3,   y: 0,   start: false, accept: false },
+  { id: 4, label: 'q₄', x: 4,   y: 0,   start: false, accept: true  },
+  { id: 5, label: 'qₓ', x: 2,   y: 1.6, start: false, accept: false }, // dead state
+];
+
+// delta: [fromState, char] → toState
+const DELTA = {
+  '0,M': 1, '0,*': 5,
+  '1,I': 2, '1,*': 5,
+  '2,R': 3, '2,*': 5,
+  '3,A': 4, '3,*': 5,
+  '4,*': 5,
+  '5,*': 5,
+};
+
+function transition(state, char) {
+  const c = char.toUpperCase();
+  const key = `${state},${c}`;
+  return DELTA[key] !== undefined ? DELTA[key] : DELTA[`${state},*`];
+}
+
+// ═══════════════════════════════════════════════
+//  CANVAS SETUP
+// ═══════════════════════════════════════════════
+const canvas = document.getElementById('dfa-canvas');
+const ctx    = canvas.getContext('2d');
+const CW     = 700;
+const CH     = 420;
+canvas.width  = CW;
+canvas.height = CH;
+
+// Map logical positions to canvas coords
+const PAD  = 80;
+const COLS = 5;
+const ROWS = 2;
+const colW = (CW - PAD * 2) / (COLS - 1);
+const rowH = (CH - PAD * 2) / ROWS;
+
+function statePos(s) {
+  return {
+    x: PAD + s.x * colW,
+    y: PAD + s.y * rowH,
+  };
+}
+
+// Gear geometry per state
+const GEAR_R    = [34, 30, 36, 30, 38, 26]; // outer radius per state
+const GEAR_TEETH= [12, 11, 13, 11, 14, 9];
+const GEAR_DIRS = [1, -1, 1, -1, 1, 1];     // rotation direction
+
+let gearAngles  = [0, 0, 0, 0, 0, 0];
+let gearSpeeds  = [0, 0, 0, 0, 0, 0];
+let activeState = 0;
+let runTrail    = []; // sequence of states visited
+let animating   = false;
+
+// ═══════════════════════════════════════════════
+//  DRAW HELPERS
+// ═══════════════════════════════════════════════
+function drawGear(cx, cy, outerR, innerR, teeth, angle, color, strokeColor, alpha=1) {
+  const toothDepth = outerR - innerR;
+  const angleStep  = (Math.PI * 2) / teeth;
+  const toothW     = angleStep * 0.38;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(cx, cy);
+  ctx.rotate(angle);
+
+  ctx.beginPath();
+  for (let i = 0; i < teeth; i++) {
+    const a0 = i * angleStep - toothW / 2;
+    const a1 = i * angleStep + toothW / 2;
+    const a2 = a1 + angleStep * 0.08;
+    const a3 = (i + 1) * angleStep - toothW / 2 - angleStep * 0.08;
+
+    if (i === 0) {
+      ctx.moveTo(Math.cos(a0) * innerR, Math.sin(a0) * innerR);
+    } else {
+      ctx.lineTo(Math.cos(a0) * innerR, Math.sin(a0) * innerR);
+    }
+    ctx.lineTo(Math.cos(a0) * outerR, Math.sin(a0) * outerR);
+    ctx.lineTo(Math.cos(a1) * outerR, Math.sin(a1) * outerR);
+    ctx.lineTo(Math.cos(a1) * innerR, Math.sin(a1) * innerR);
+    ctx.lineTo(Math.cos(a2) * innerR, Math.sin(a2) * innerR);
+    ctx.lineTo(Math.cos(a3) * innerR, Math.sin(a3) * innerR);
+  }
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = strokeColor;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Inner hub
+  ctx.beginPath();
+  ctx.arc(0, 0, innerR * 0.55, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = strokeColor;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Center dot
+  ctx.beginPath();
+  ctx.arc(0, 0, 3, 0, Math.PI * 2);
+  ctx.fillStyle = strokeColor;
+  ctx.fill();
+
+  // Spoke lines
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a) * 5, Math.sin(a) * 5);
+    ctx.lineTo(Math.cos(a) * innerR * 0.52, Math.sin(a) * innerR * 0.52);
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = 0.8;
+    ctx.globalAlpha = alpha * 0.4;
+    ctx.stroke();
+    ctx.globalAlpha = alpha;
+  }
+
+  ctx.restore();
+}
+
+function drawTransitionArrow(fromS, toS, label, active, color) {
+  const f = statePos(fromS);
+  const t = statePos(toS);
+  const R = GEAR_R[fromS.id];
+
+  const dx = t.x - f.x;
+  const dy = t.y - f.y;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  const ux = dx/dist, uy = dy/dist;
+
+  const sx = f.x + ux * (R + 4);
+  const sy = f.y + uy * (R + 4);
+  const ex = t.x - ux * (GEAR_R[toS.id] + 4);
+  const ey = t.y - uy * (GEAR_R[toS.id] + 4);
+
+  ctx.save();
+  ctx.strokeStyle = active ? color : cssVar('--rule');
+  ctx.lineWidth   = active ? 1.5 : 0.8;
+  ctx.globalAlpha = active ? 1 : 0.6;
+  ctx.setLineDash(active ? [] : [3, 4]);
+
+  ctx.beginPath();
+  ctx.moveTo(sx, sy);
+  ctx.lineTo(ex, ey);
+  ctx.stroke();
+
+  // Arrowhead
+  const hLen = 8, hWid = 4;
+  const ax = ex - ux * hLen, ay = ey - uy * hLen;
+  const px = -uy, py = ux;
+  ctx.beginPath();
+  ctx.moveTo(ex, ey);
+  ctx.lineTo(ax + px * hWid, ay + py * hWid);
+  ctx.lineTo(ax - px * hWid, ay - py * hWid);
+  ctx.closePath();
+  ctx.fillStyle = active ? color : cssVar('--rule');
+  ctx.fill();
+
+  // Label
+  const mx = (sx + ex) / 2 - uy * 14;
+  const my = (sy + ey) / 2 + ux * 14;
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = active ? color : cssVar('--ink4');
+  ctx.font = `${active ? 500 : 300} 10px ${cssVar('--font-mono').split(',')[0]}`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, mx, my);
+
+  ctx.restore();
+}
+
+function drawDeadArrow(fromS, toDeadS, active) {
+  const f = statePos(fromS);
+  const t = statePos(toDeadS);
+  const color = cssVar('--ruby');
+
+  // Curved arc downward
+  const cpx = (f.x + t.x) / 2;
+  const cpy = (f.y + t.y) / 2 + 40;
+
+  ctx.save();
+  ctx.strokeStyle = active ? color : cssVar('--rule');
+  ctx.lineWidth   = active ? 1.2 : 0.6;
+  ctx.globalAlpha = active ? 0.8 : 0.3;
+  ctx.setLineDash([3, 4]);
+
+  ctx.beginPath();
+  ctx.moveTo(f.x, f.y + GEAR_R[fromS.id]);
+  ctx.quadraticCurveTo(cpx, cpy, t.x, t.y - GEAR_R[toDeadS.id]);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawStateLabel(s, isActive, isAccept) {
+  const p = statePos(s);
+  const color = isAccept
+    ? cssVar('--emerald')
+    : isActive
+      ? cssVar('--sapphire')
+      : cssVar('--ink3');
+
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.font = `300 9px ${cssVar('--font-mono').split(',')[0]}`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.globalAlpha = 0.9;
+  ctx.fillText(s.label, p.x, p.y + GEAR_R[s.id] + 6);
+  ctx.restore();
+}
+
+function drawStartArrow(s) {
+  const p = statePos(s);
+  const x = p.x - GEAR_R[s.id] - 4;
+  ctx.save();
+  ctx.strokeStyle = cssVar('--ink4');
+  ctx.lineWidth = 0.8;
+  ctx.globalAlpha = 0.5;
+  ctx.setLineDash([2, 3]);
+  ctx.beginPath();
+  ctx.moveTo(x - 22, p.y);
+  ctx.lineTo(x, p.y);
+  ctx.stroke();
+  // tiny arrow
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(x, p.y);
+  ctx.lineTo(x - 7, p.y - 4);
+  ctx.lineTo(x - 7, p.y + 4);
+  ctx.closePath();
+  ctx.fillStyle = cssVar('--ink4');
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawAcceptDouble(s) {
+  const p = statePos(s);
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, GEAR_R[s.id] + 7, 0, Math.PI * 2);
+  ctx.strokeStyle = cssVar('--emerald');
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.5;
+  ctx.setLineDash([2, 3]);
+  ctx.stroke();
+  ctx.restore();
+}
+
+// ═══════════════════════════════════════════════
+//  MAIN DRAW
+// ═══════════════════════════════════════════════
+function drawDFA() {
+  ctx.clearRect(0, 0, CW, CH);
+
+  const bg      = cssVar('--bg');
+  const ink     = cssVar('--ink');
+  const ink3    = cssVar('--ink3');
+  const ink4    = cssVar('--ink4');
+  const rule    = cssVar('--rule');
+  const metal   = cssVar('--metal');
+  const metal2  = cssVar('--metal2');
+  const sapphire= cssVar('--sapphire');
+  const emerald = cssVar('--emerald');
+  const amber   = cssVar('--amber');
+
+  // Draw transitions
+  const transitions = [
+    { from: 0, to: 1, label: 'M' },
+    { from: 1, to: 2, label: 'I' },
+    { from: 2, to: 3, label: 'R' },
+    { from: 3, to: 4, label: 'A' },
+  ];
+  transitions.forEach(t => {
+    const isActive = runTrail.includes(t.from) && runTrail.includes(t.to);
+    drawTransitionArrow(STATES[t.from], STATES[t.to], t.label, isActive, sapphire);
+  });
+
+  // Dead state arcs (subtle)
+  [0,1,2,3,4].forEach(i => {
+    const inTrailAt = runTrail.indexOf(5);
+    const active = inTrailAt > 0 && runTrail[inTrailAt - 1] === i;
+    drawDeadArrow(STATES[i], STATES[5], active);
+  });
+
+  // Start arrow
+  drawStartArrow(STATES[0]);
+
+  // Accept double ring
+  drawAcceptDouble(STATES[4]);
+
+  // Draw gears
+  STATES.forEach((s, i) => {
+    const p = statePos(s);
+    const outerR = GEAR_R[i];
+    const innerR = outerR * 0.62;
+    const isActive = activeState === i;
+    const isAccept = s.accept;
+    const inTrail  = runTrail.includes(i);
+
+    let gearColor, strokeColor, alpha;
+
+    if (isAccept && inTrail) {
+      gearColor   = `rgba(26,122,74,0.12)`;
+      strokeColor = emerald;
+      alpha = 1;
+    } else if (i === 5 && runTrail.includes(5)) {
+      gearColor   = `rgba(164,36,36,0.1)`;
+      strokeColor = cssVar('--ruby');
+      alpha = 1;
+    } else if (isActive) {
+      gearColor   = `rgba(36,85,164,0.1)`;
+      strokeColor = sapphire;
+      alpha = 1;
+    } else if (inTrail) {
+      gearColor   = `rgba(36,85,164,0.06)`;
+      strokeColor = metal;
+      alpha = 1;
+    } else {
+      gearColor   = 'transparent';
+      strokeColor = rule;
+      alpha = 0.7;
+    }
+
+    drawGear(p.x, p.y, outerR, innerR, GEAR_TEETH[i], gearAngles[i], gearColor, strokeColor, alpha);
+    drawStateLabel(s, isActive, isAccept);
+  });
+
+  // Neural net overlay on active transition teeth
+  if (runTrail.length >= 2) {
+    const last  = runTrail[runTrail.length - 1];
+    const prev  = runTrail[runTrail.length - 2];
+    if (last !== 5 && prev !== 5) {
+      drawNeuralTransition(statePos(STATES[prev]), statePos(STATES[last]));
+    }
+  }
+
+  // Dimension annotation lines
+  drawDimLines();
+}
+
+// ═══════════════════════════════════════════════
+//  NEURAL NET OVERLAY — on active transition
+// ═══════════════════════════════════════════════
+function drawNeuralTransition(from, to) {
+  const midX = (from.x + to.x) / 2;
+  const midY = (from.y + to.y) / 2 - 30;
+
+  const nodes = [
+    { x: midX - 22, y: midY - 10 },
+    { x: midX - 22, y: midY + 10 },
+    { x: midX,      y: midY - 14 },
+    { x: midX,      y: midY },
+    { x: midX,      y: midY + 14 },
+    { x: midX + 22, y: midY },
+  ];
+  const edges = [
+    [0,2],[0,3],[0,4],[1,2],[1,3],[1,4],[2,5],[3,5],[4,5]
+  ];
+
+  ctx.save();
+  ctx.globalAlpha = 0.25;
+  edges.forEach(([a,b]) => {
+    ctx.beginPath();
+    ctx.moveTo(nodes[a].x, nodes[a].y);
+    ctx.lineTo(nodes[b].x, nodes[b].y);
+    ctx.strokeStyle = cssVar('--sapphire');
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+  });
+
+  nodes.forEach((n, i) => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, i === 0 || i === 1 || i === 5 ? 4 : 3, 0, Math.PI * 2);
+    ctx.fillStyle = cssVar('--sapphire');
+    ctx.fill();
+  });
+  ctx.restore();
+}
+
+// ═══════════════════════════════════════════════
+//  DIMENSION LINES
+// ═══════════════════════════════════════════════
+function drawDimLines() {
+  const p0 = statePos(STATES[0]);
+  const p4 = statePos(STATES[4]);
+  const y  = CH - 28;
+
+  ctx.save();
+  ctx.strokeStyle = cssVar('--ink4');
+  ctx.fillStyle   = cssVar('--ink4');
+  ctx.lineWidth   = 0.6;
+  ctx.globalAlpha = 0.4;
+  ctx.font        = `300 8px ${cssVar('--font-mono').split(',')[0]}`;
+  ctx.textAlign   = 'center';
+  ctx.setLineDash([2,3]);
+
+  // Horizontal extent line
+  ctx.beginPath();
+  ctx.moveTo(p0.x, y);
+  ctx.lineTo(p4.x, y);
+  ctx.stroke();
+
+  // Tick marks
+  [p0.x, p4.x].forEach(x => {
+    ctx.beginPath();
+    ctx.moveTo(x, y - 4);
+    ctx.lineTo(x, y + 4);
+    ctx.stroke();
+  });
+
+  ctx.setLineDash([]);
+  ctx.fillText('4 STATE TRANSITIONS · Σ = {M,I,R,A,…}', (p0.x + p4.x)/2, y + 8);
+  ctx.restore();
+}
+
+// ═══════════════════════════════════════════════
+//  GEAR ANIMATION LOOP
+// ═══════════════════════════════════════════════
+let lastTime = 0;
+function tick(ts) {
+  const dt = Math.min((ts - lastTime) / 1000, 0.05);
+  lastTime = ts;
+
+  STATES.forEach((_, i) => {
+    if (gearSpeeds[i] !== 0) {
+      gearAngles[i] += gearSpeeds[i] * GEAR_DIRS[i] * dt;
+      gearSpeeds[i] *= 0.94; // friction
+      if (Math.abs(gearSpeeds[i]) < 0.01) gearSpeeds[i] = 0;
+    }
+  });
+
+  // Ambient idle tick — q0 always ticks very slowly (real clock)
+  gearAngles[0] += 0.004 * dt * 60;
+
+  drawDFA();
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+// ═══════════════════════════════════════════════
+//  RUN DFA
+// ═══════════════════════════════════════════════
+const inputEl  = document.getElementById('dfa-input');
+const runBtn   = document.getElementById('dfa-run');
+const statusEl = document.getElementById('dfa-status');
+
+function runDFA(str) {
+  if (!str.trim()) return;
+  const chars = str.toUpperCase().split('');
+  let state = 0;
+  const trail = [0];
+  chars.forEach(c => {
+    state = transition(state, c);
+    trail.push(state);
+  });
+
+  // Animate step by step
+  runTrail = [];
+  activeState = 0;
+  statusEl.className = 'status-idle';
+  statusEl.textContent = '— running —';
+
+  let step = 0;
+  function nextStep() {
+    if (step >= trail.length) {
+      const accepted = STATES[state].accept;
+      statusEl.textContent = accepted
+        ? `✓ ACCEPTED  —  "${str.toUpperCase()}" is in L(M)`
+        : `✗ REJECTED  —  "${str.toUpperCase()}" ∉ L(M)`;
+      statusEl.className = accepted ? 'status-accept' : 'status-reject';
+      activeState = -1;
+      return;
+    }
+
+    activeState = trail[step];
+    runTrail = trail.slice(0, step + 1);
+
+    // Spin gears along the trail
+    gearSpeeds[trail[step]] = 3.5 + Math.random() * 1.5;
+    if (step > 0) gearSpeeds[trail[step-1]] = 1.5;
+
+    step++;
+    setTimeout(nextStep, 480);
+  }
+  nextStep();
+}
+
+runBtn.addEventListener('click', () => runDFA(inputEl.value));
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter') runDFA(inputEl.value);
+});
+</script>
+</body>
+</html>

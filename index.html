@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Krishnaiah</title>
+<script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ─────────────────────────────────────────────
+   LANDING-SPECIFIC STYLES
+───────────────────────────────────────────── */
+
+/* Drawing frame — full-viewport centered canvas area */
+.drawing-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Blueprint grid — very subtle */
+.drawing-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, var(--rule) 0, var(--rule) 1px, transparent 1px, transparent 48px),
+    repeating-linear-gradient(90deg, var(--rule) 0, var(--rule) 1px, transparent 1px, transparent 48px);
+  opacity: 0.35;
+}
+
+/* Corner registration marks */
+.reg {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-color: var(--ink4);
+  border-style: solid;
+  opacity: 0.5;
+}
+.reg-tl { top: 3rem; left: 3rem; border-width: 1px 0 0 1px; }
+.reg-tr { top: 3rem; right: 3rem; border-width: 1px 1px 0 0; }
+.reg-bl { bottom: 3rem; left: 3rem; border-width: 0 0 1px 1px; }
+.reg-br { bottom: 3rem; right: 3rem; border-width: 0 1px 1px 0; }
+
+/* Sheet title block — bottom right */
+.title-block {
+  position: absolute;
+  bottom: 3rem; right: 3rem;
+  text-align: right;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.5s forwards;
+}
+
+.title-block-name {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.title-block-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--ink3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+}
+
+.title-block-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin: 0.6rem 0;
+}
+
+.title-block-meta {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--ink4);
+  letter-spacing: 0.1em;
+}
+
+/* Drawing number — bottom left */
+.drawing-number {
+  position: absolute;
+  bottom: 3rem; left: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--ink4);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.8s forwards;
+}
+
+/* Margin annotations */
+.margin-note {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-style: italic;
+  color: var(--ink4);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  max-width: 140px;
+  opacity: 0;
+  animation: fadeIn 1s ease 2s forwards;
+  cursor: default;
+}
+.margin-note.left { text-align: right; }
+.margin-note-1 {
+  top: 38%; left: 2.5rem;
+  text-align: right;
+}
+.margin-note-2 {
+  top: 55%; right: 2.5rem;
+  text-align: left;
+}
+
+/* Tooltip for margin note */
+.margin-note[data-tooltip] {
+  position: absolute;
+}
+.margin-note[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 0.75rem);
+  top: 0;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  color: var(--ink3);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.6rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+.margin-note[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* DFA canvas */
+#dfa-canvas {
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeIn 1.2s ease 0.4s forwards;
+}
+
+/* Input terminal */
+.terminal {
+  position: absolute;
+  bottom: 6.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease 2.2s forwards;
+}
+
+.terminal-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink4);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.terminal-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+#dfa-input {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  width: 160px;
+  padding: 0.3rem 0.5rem;
+  text-align: center;
+  outline: none;
+  cursor: none;
+  transition: border-color .2s;
+  caret-color: var(--sapphire);
+}
+#dfa-input:focus { border-bottom-color: var(--sapphire); }
+#dfa-input::placeholder { color: var(--ink4); letter-spacing: 0.1em; }
+
+#dfa-run {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink3);
+  padding: 0.35rem 0.8rem;
+  cursor: none;
+  transition: all .2s;
+}
+#dfa-run:hover {
+  border-color: var(--sapphire);
+  color: var(--sapphire);
+}
+
+#dfa-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  margin-top: 0.6rem;
+  height: 1em;
+  transition: color .3s;
+}
+.status-accept { color: var(--accept); }
+.status-reject { color: var(--reject); }
+.status-idle   { color: var(--ink4); }
+
+/* Dimension line SVG overlay */
+#dim-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.6s forwards;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-sig">MK</a>
+  <div class="nav-right">
+    <a href="workbench.html" class="nav-link">Workbench</a>
+    <a href="resume.html" class="nav-link">Resume</a>
+    <button id="theme-btn">◐ Dark</button>
+  </div>
+</nav>
+
+<!-- MAIN DRAWING FRAME -->
+<div class="drawing-frame">
+
+  <!-- Registration marks -->
+  <div class="reg reg-tl"></div>
+  <div class="reg reg-tr"></div>
+  <div class="reg reg-bl"></div>
+  <div class="reg reg-br"></div>
+
+  <!-- Dimension line SVG overlay -->
+  <svg id="dim-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <!-- DFA Canvas -->
+  <canvas id="dfa-canvas"></canvas>
+
+  <!-- Margin annotations -->
+  <div class="margin-note margin-note-1" data-tooltip="— cf. Ghrist, MTM">
+    state machines<br>all the way<br>down
+  </div>
+
+  <div class="margin-note margin-note-2">
+    δ(q, σ) → q′<br>
+    <span style="color:var(--ink4);font-size:0.5rem;">transitions fire<br>on each character</span>
+  </div>
+
+  <!-- Input terminal -->
+  <div class="terminal">
+    <div class="terminal-label">Input string ↓</div>
+    <div class="terminal-input-row">
+      <input id="dfa-input" type="text" maxlength="12" placeholder="type anything" autocomplete="off" spellcheck="false">
+      <button id="dfa-run">Run</button>
+    </div>
+    <div id="dfa-status" class="status-idle">— waiting for input —</div>
+  </div>
+
+  <!-- Title block -->
+  <div class="title-block">
+    <div class="title-block-name">Mira Krishnaiah</div>
+    <div class="title-block-rule"></div>
+    <div class="title-block-sub">AI + Mechanical Engineering · UPenn</div>
+    <div style="height:0.4rem"></div>
+    <div class="title-block-meta">DWG NO. MK–001 · REV A</div>
+  </div>
+
+  <!-- Drawing number -->
+  <div class="drawing-number">
+    SCALE 1:1 · SHEET 1 OF 3<br>
+    <span style="opacity:0.6">© 2025 MIRA KRISHNAIAH</span>
+  </div>
+
+</div>
+
+<!-- cursor elements -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<script src="dfa.js"></script>
+<script src="cursor.js"></script>
+
+<!-- theme toggle JS -->
+<script>
+(function() {
+  const btn = document.getElementById('theme-btn');
+  if (!btn) return;
+  const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+  btn.textContent = isDark() ? '◑ Light' : '◐ Dark';
+  btn.addEventListener('click', function() {
+    const dark = !isDark();
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    btn.textContent = dark ? '◑ Light' : '◐ Dark';
+    if (typeof drawDFA === 'function') drawDFA();
+  });
+})();
+</script>
+</body>
+</html>

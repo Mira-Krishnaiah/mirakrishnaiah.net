@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume — Mira Krishnaiah</title>
+<script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ─────────────────────────────────────────────
+   RESUME PAGE STYLES
+───────────────────────────────────────────── */
+
+.resume-outer {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 7rem 2rem 5rem;
+}
+
+/* Thin rule below nav area */
+.nav-rule {
+  position: fixed;
+  top: 3.75rem;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--rule);
+  z-index: 400;
+  opacity: 0.6;
+}
+
+/* Centered content column */
+.resume-content {
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── Header block ── */
+.resume-name {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.resume-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--ink3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.resume-contact {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink4);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.2rem;
+  line-height: 1.7;
+}
+
+.resume-url {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink4);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: color .2s;
+  cursor: none;
+}
+.resume-url:hover { color: var(--sapphire); }
+
+/* ── Summary ── */
+.resume-summary {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink2);
+  line-height: 1.65;
+  margin-top: 0.8rem;
+}
+
+/* ── Section dividers ── */
+.resume-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 1.8rem 0 1.2rem;
+}
+
+/* ── Section headers ── */
+.section-head {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 1rem;
+}
+
+/* ── Entry blocks ── */
+.entry {
+  margin-bottom: 1.4rem;
+}
+
+.entry-title {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.entry-meta {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.entry-body {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink2);
+  line-height: 1.65;
+}
+
+.entry-body ul {
+  list-style: none;
+  padding: 0;
+}
+.entry-body li {
+  padding-left: 1.1rem;
+  position: relative;
+  margin-bottom: 0.2rem;
+}
+.entry-body li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--ink4);
+}
+
+.entry-body li ul {
+  margin-top: 0.15rem;
+}
+.entry-body li ul li {
+  padding-left: 1.4rem;
+}
+.entry-body li ul li::before {
+  content: '·';
+}
+
+/* ── Skills grid ── */
+.skills-group {
+  margin-bottom: 0.6rem;
+}
+.skills-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--ink3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 0.6rem;
+  display: inline;
+}
+.skills-list {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink2);
+  display: inline;
+}
+
+/* ── Coursework ── */
+.course-group {
+  margin-bottom: 0.8rem;
+}
+.course-area {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--ink3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.course-list {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+
+/* ── Footer note ── */
+.resume-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  color: var(--ink4);
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-sig">MK</a>
+  <div class="nav-right">
+    <a href="workbench.html" class="nav-link">Workbench</a>
+    <a href="resume.html" class="nav-link active">Resume</a>
+    <button id="theme-btn">◐ Dark</button>
+  </div>
+</nav>
+
+<!-- Thin rule below nav -->
+<div class="nav-rule"></div>
+
+<!-- RESUME OUTER CONTAINER -->
+<div class="resume-outer">
+  <div class="resume-content">
+
+    <!-- ── HEADER ── -->
+    <div class="entry" style="margin-bottom:2rem;">
+      <div class="resume-name">Mira Krishnaiah</div>
+      <span class="resume-contact">
+        mirakrishnaiah@gmail.com · 415-465-3259 · San Francisco, CA
+      </span>
+      <a href="https://linkedin.com/in/mira-krishnaiah-2a714a285" class="resume-url" target="_blank" rel="noopener">
+        linkedin.com/in/mira-krishnaiah-2a714a285
+      </a>
+      <p class="resume-summary">
+        Artificial Intelligence and Mechanical Engineering student at UPenn, passionate about bridging AI research and deployable hardware. Published machine learning researcher with start-up pace experience shipping mechanical systems from rapid prototyping to competition-ready hardware. Seeking roles at the intersection of embodied AI, robotics automation, and physical system design.
+      </p>
+    </div>
+
+    <!-- ── EDUCATION ── -->
+    <hr class="resume-rule">
+    <div class="section-head">Education</div>
+
+    <div class="entry">
+      <div class="entry-title">University of Pennsylvania</div>
+      <div class="entry-meta">
+        Candidate for B.S.E. in Artificial Intelligence (Minor: Mechanical Engineering)<br>
+        Expected May 2029
+      </div>
+    </div>
+
+    <!-- ── EXPERIENCE ── -->
+    <hr class="resume-rule">
+    <div class="section-head">Product and Research Experience</div>
+
+    <div class="entry">
+      <div class="entry-title">ModLab · University of Pennsylvania</div>
+      <div class="entry-meta">Mechanical Engineering Researcher · September 2025 – Present</div>
+      <div class="entry-body">
+        <ul>
+          <li>Redesigned fatigue testing rig for Twisted String Actuators: reduced link weight, integrated magnetic encoder for autonomous cycle tracking, fabricated and assembled test setup</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">The Missfits (Team 6418) · FIRST Robotics</div>
+      <div class="entry-meta">Team President and Head of Design · August 2023 – August 2025</div>
+      <div class="entry-body">
+        <ul>
+          <li>Rebuilt a nearly-dissolved program after COVID setbacks, securing a workshop, recruiting 10+ members, driving fundraising, and raising technical training to certification level</li>
+          <li>Won Engineering Excellence for design process and Creativity for custom coaxial linkage arm design
+            <ul>
+              <li>Led end-to-end robot development across five subteams, under 6-week product deadlines</li>
+              <li>Personally CAD-modeled ~90% of all custom subsystems in Onshape for two 150lb competitive robots</li>
+              <li>Executed 250+ hours of CNC machining, prototyping, and assembly of all mechanisms</li>
+            </ul>
+          </li>
+          <li>Collaborated with industry professionals from autonomous vehicle fields</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Summer Research Academies · UCSB</div>
+      <div class="entry-meta">Machine Learning Researcher · Summer 2023</div>
+      <div class="entry-body">
+        <ul>
+          <li>Published research paper on the Curieux Academic Journal (pg 145)</li>
+          <li>Trained an ANN in Python to accurately predict an element's Young's, Bulk, and Shear Moduli with 98% accuracy, reducing alloy screening cost for additive-manufacturing in aerospace applications</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">ATLAS Institute · CU Boulder</div>
+      <div class="entry-meta">Haptic Design Researcher · Summer 2022</div>
+      <div class="entry-body">
+        <ul>
+          <li>Developed "ShapeUp" prototype with 16 independently actuated tiles, creating low-cost shape-changing display. Designed servo-driven rack and pinion + 3D printed scissor-lift system</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Bloom Board · Independent</div>
+      <div class="entry-meta">Product Developer · May 2023 – June 2025</div>
+      <div class="entry-body">
+        <ul>
+          <li>Created display of 3D printed interactive robotic flowers to provide students an anonymous method of communicating their emotional wellbeing to school administration</li>
+          <li>Won 2nd place Live Conference Presentation at Polygence Symposium</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SKILLS ── -->
+    <hr class="resume-rule">
+    <div class="section-head">Additional Skills</div>
+
+    <div class="entry">
+      <div class="entry-body">
+        <div class="skills-group">
+          <span class="skills-group-label">Engineering</span>
+          <span class="skills-list">Onshape · SolidWorks · GD&amp;T · CNC Machining · Prototyping · 3D Printing</span>
+        </div>
+        <div class="skills-group">
+          <span class="skills-group-label">AI / Programming</span>
+          <span class="skills-list">Python (Machine learning, ANNs) · Java · OCaml</span>
+        </div>
+        <div class="skills-group">
+          <span class="skills-group-label">Languages</span>
+          <span class="skills-list">Fluent in Mandarin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COURSEWORK ── -->
+    <hr class="resume-rule">
+    <div class="section-head">Coursework</div>
+
+    <div class="entry">
+      <div class="course-group">
+        <div class="course-area">Mathematics</div>
+        <div class="course-list">
+          Multivariate Calculus · Linear Algebra · Number Theory · Discrete Probability ·
+          Models of Computation · Computable Structures · Linear Topology ·
+          Voting Theory · Information Theory · Game Theory
+        </div>
+      </div>
+
+      <div class="course-group">
+        <div class="course-area">Computer Science</div>
+        <div class="course-list">
+          Computing Systems Design · Artificial Intelligence Lab
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <div class="resume-footer">
+      DWG NO. MK–003 · REV B · SHEET 3 OF 3 · © 2025 MIRA KRISHNAIAH
+    </div>
+
+  </div><!-- end .resume-content -->
+</div><!-- end .resume-outer -->
+
+<!-- cursor elements -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+<script src="cursor.js"></script>
+
+<!-- theme toggle JS -->
+<script>
+(function() {
+  const btn = document.getElementById('theme-btn');
+  if (!btn) return;
+  const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+  btn.textContent = isDark() ? '◑ Light' : '◐ Dark';
+  btn.addEventListener('click', function() {
+    const dark = !isDark();
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    btn.textContent = dark ? '◑ Light' : '◐ Dark';
+  });
+})();
+</script>
+</body>
+</html>
