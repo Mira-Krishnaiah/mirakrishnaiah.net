@@ -48,47 +48,6 @@
 .reg-bl { bottom: 3rem; left: 3rem; border-width: 0 0 1px 1px; }
 .reg-br { bottom: 3rem; right: 3rem; border-width: 0 1px 1px 0; }
 
-/* Sheet title block — bottom right */
-.title-block {
-  position: absolute;
-  bottom: 3rem; right: 3rem;
-  text-align: right;
-  opacity: 0;
-  animation: fadeIn 1s ease 1.5s forwards;
-}
-
-.title-block-name {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.title-block-sub {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 300;
-  color: var(--ink3);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 0.35rem;
-}
-
-.title-block-rule {
-  width: 100%;
-  height: 1px;
-  background: var(--rule);
-  margin: 0.6rem 0;
-}
-
-.title-block-meta {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--ink4);
-  letter-spacing: 0.1em;
-}
-
 /* Drawing number — bottom left */
 .drawing-number {
   position: absolute;
@@ -128,7 +87,7 @@
 /* Name block — top left */
 .name-block {
   position: absolute;
-  top: 5rem; left: 3rem;
+  top: 3rem; left: 5.5rem;
   opacity: 0;
   animation: fadeIn 1s ease 1.5s forwards;
   z-index: 10;
@@ -298,15 +257,6 @@
       <button id="dfa-run">Run</button>
     </div>
     <div id="dfa-status" class="status-idle">— waiting for input —</div>
-  </div>
-
-  <!-- Title block -->
-  <div class="title-block">
-    <div class="title-block-name">Mira Krishnaiah</div>
-    <div class="title-block-rule"></div>
-    <div class="title-block-sub">AI + Mechanical Engineering · UPenn</div>
-    <div style="height:0.4rem"></div>
-    <div class="title-block-meta">DWG NO. MK–001 · REV A</div>
   </div>
 
   <!-- Drawing number -->
