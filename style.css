@@ -175,18 +175,7 @@ nav {
 }
 
 #cur-ring {
-  position: fixed;
-  width: 28px;
-  height: 28px;
-  border: 1px solid white;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-  background: white;
-  opacity: 0.7;
-  transition: width .2s, height .2s, opacity .2s;
+  display: none;
 }
 
 #cur-dot.hover {
@@ -194,10 +183,6 @@ nav {
   height: 14px;
 }
 
-#cur-ring.hover {
-  width: 44px;
-  height: 44px;
-}
 
 /* ─────────────────────────────────────────────
    ANIMATIONS

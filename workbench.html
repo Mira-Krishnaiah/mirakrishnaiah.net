@@ -60,8 +60,8 @@
 }
 
 .project-label {
-  font-size: 0.55rem;
-  color: var(--ink3);
+  font-size: 0.62rem;
+  color: var(--ink2);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 0.6rem;
@@ -69,7 +69,7 @@
 }
 
 .status-badge {
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   display: inline-block;
@@ -307,16 +307,16 @@
 }
 .note-title {
   font-family: var(--font-mono);
-  font-size: 0.52rem;
+  font-size: 0.56rem;
   font-weight: 500;
-  color: var(--ink2);
+  color: var(--ink);
   letter-spacing: 0.05em;
   display: block;
 }
 .note-sub {
   font-family: var(--font-mono);
-  font-size: 0.45rem;
-  color: var(--ink4);
+  font-size: 0.48rem;
+  color: var(--ink3);
   display: block;
   margin-top: 0.1rem;
   line-height: 1.3;
@@ -344,15 +344,44 @@
   transform: translateY(0);
 }
 .detail-inner {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 1.5rem 2rem;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+.detail-image-col {
+  flex: 0 0 200px;
+  max-height: 260px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.detail-image-col img {
+  max-width: 200px;
+  max-height: 260px;
+  object-fit: contain;
+}
+.detail-image-col > .blueprint-card,
+.detail-image-col > .sketch-card,
+.detail-image-col > .sketchbook,
+.detail-image-col > .crumpled-card {
+  transform: none !important;
+  max-width: 200px;
+  max-height: 260px;
+  overflow: hidden;
+}
+.detail-content-col {
+  flex: 1;
   position: relative;
+  min-width: 0;
 }
 .detail-close {
   position: absolute;
-  top: 1rem;
-  right: 1.5rem;
+  top: 0;
+  right: 0;
   background: none;
   border: 1px solid var(--rule);
   color: var(--ink4);
@@ -373,7 +402,15 @@
   font-family: var(--font-display);
   font-size: 1.3rem;
   color: var(--ink);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
+  padding-right: 2.5rem;
+}
+.detail-time {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--ink4);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
 }
 .detail-status {
   font-family: var(--font-mono);
@@ -388,6 +425,25 @@
   color: var(--ink2);
   line-height: 1.65;
   max-width: 560px;
+  margin-bottom: 0.8rem;
+}
+.detail-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.detail-link {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--sapphire);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+  cursor: none;
+}
+.detail-link:hover {
+  border-bottom-color: var(--sapphire);
 }
 </style>
 </head>
@@ -816,8 +872,8 @@
         <circle cx="139" cy="141" r="3.5" fill="rgba(26,122,74,0.2)" stroke="var(--emerald)" stroke-width="0.7"/>
 
         <!-- Bottom label -->
-        <text x="87" y="180" font-family="'IBM Plex Mono'" font-size="4.8"
-          fill="var(--ink4)" text-anchor="middle" opacity="0.5">3×3 · servo-actuated · 3D printed</text>
+        <text x="87" y="180" font-family="'IBM Plex Mono'" font-size="5.2"
+          fill="var(--ink2)" text-anchor="middle" opacity="0.8">3×3 · servo-actuated · 3D printed</text>
       </svg>
       <span class="status-badge emerald">◌ in progress</span>
       <span class="project-label">Bloom Board</span>
@@ -829,68 +885,9 @@
        style="left:4%; top:40%; transform:rotate(-1.5deg); width:205px;">
     <div class="blueprint-card">
       <div class="blueprint-pin" style="background:var(--emerald);"></div>
-      <svg width="100%" height="195" viewBox="0 0 175 195" xmlns="http://www.w3.org/2000/svg">
-        <!-- Title -->
-        <text x="87" y="10" font-family="'IBM Plex Mono'" font-size="7" font-weight="500"
-          fill="var(--sapphire)" text-anchor="middle" opacity="0.9">CALLIOPE</text>
-        <!-- Hood (amp scorer) — 3 rollers -->
-        <rect x="55" y="17" width="65" height="16" rx="2"
-          fill="rgba(36,85,164,0.06)" stroke="var(--sapphire)" stroke-width="1" opacity="0.85"/>
-        <circle cx="68" cy="25" r="5.5" fill="none" stroke="var(--sapphire)" stroke-width="0.8" opacity="0.7"/>
-        <circle cx="87" cy="25" r="5.5" fill="none" stroke="var(--sapphire)" stroke-width="0.8" opacity="0.7"/>
-        <circle cx="106" cy="25" r="5.5" fill="none" stroke="var(--sapphire)" stroke-width="0.8" opacity="0.7"/>
-        <!-- Pivot arm -->
-        <rect x="82" y="33" width="11" height="42" rx="2"
-          fill="none" stroke="var(--ink3)" stroke-width="1.2" opacity="0.85"/>
-        <!-- Shooter flywheels -->
-        <circle cx="73" cy="54" r="9" fill="none" stroke="var(--ink3)" stroke-width="1" opacity="0.7"/>
-        <line x1="73" y1="45" x2="73" y2="63" stroke="var(--ink3)" stroke-width="0.5" opacity="0.3"/>
-        <line x1="64" y1="54" x2="82" y2="54" stroke="var(--ink3)" stroke-width="0.5" opacity="0.3"/>
-        <circle cx="102" cy="54" r="9" fill="none" stroke="var(--ink3)" stroke-width="1" opacity="0.7"/>
-        <line x1="102" y1="45" x2="102" y2="63" stroke="var(--ink3)" stroke-width="0.5" opacity="0.3"/>
-        <line x1="93" y1="54" x2="111" y2="54" stroke="var(--ink3)" stroke-width="0.5" opacity="0.3"/>
-        <!-- Left climber (telescoping) -->
-        <rect x="16" y="19" width="8" height="58" rx="2"
-          fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.7"/>
-        <rect x="18" y="19" width="4" height="42" rx="1"
-          fill="none" stroke="var(--metal)" stroke-width="0.6" opacity="0.4"/>
-        <path d="M16,20 Q11,14 16,11" fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <!-- Right climber (telescoping) -->
-        <rect x="151" y="19" width="8" height="58" rx="2"
-          fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.7"/>
-        <rect x="153" y="19" width="4" height="42" rx="1"
-          fill="none" stroke="var(--metal)" stroke-width="0.6" opacity="0.4"/>
-        <path d="M159,20 Q164,14 159,11" fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <!-- Main frame -->
-        <rect x="14" y="75" width="147" height="62" rx="3"
-          fill="none" stroke="var(--ink3)" stroke-width="1.2" opacity="0.85"/>
-        <line x1="14" y1="107" x2="161" y2="107" stroke="var(--ink4)" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.25"/>
-        <line x1="87" y1="75" x2="87" y2="137" stroke="var(--ink4)" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.25"/>
-        <!-- Under-bumper intake -->
-        <rect x="14" y="77" width="147" height="8" rx="1"
-          fill="rgba(140,154,170,0.06)" stroke="var(--metal)" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.7"/>
-        <text x="87" y="84" font-family="'IBM Plex Mono'" font-size="4.5"
-          fill="var(--metal)" text-anchor="middle" opacity="0.6">── intake ──</text>
-        <!-- Bumpers -->
-        <rect x="6" y="135" width="163" height="30" rx="4"
-          fill="rgba(36,85,164,0.07)" stroke="var(--sapphire)" stroke-width="1.5" opacity="0.9"/>
-        <text x="87" y="156" font-family="'IBM Plex Mono'" font-size="11" font-weight="400"
-          fill="var(--sapphire)" text-anchor="middle" letter-spacing="0.06em" opacity="0.9">6418</text>
-        <!-- Swerve modules -->
-        <rect x="6" y="163" width="22" height="18" rx="2"
-          fill="none" stroke="var(--ink4)" stroke-width="1" opacity="0.7"/>
-        <circle cx="17" cy="172" r="7" fill="none" stroke="var(--ink3)" stroke-width="0.8" opacity="0.65"/>
-        <rect x="147" y="163" width="22" height="18" rx="2"
-          fill="none" stroke="var(--ink4)" stroke-width="1" opacity="0.7"/>
-        <circle cx="158" cy="172" r="7" fill="none" stroke="var(--ink3)" stroke-width="0.8" opacity="0.65"/>
-        <rect x="8" y="165" width="18" height="14" rx="1"
-          fill="none" stroke="var(--ink4)" stroke-width="0.5" opacity="0.35"/>
-        <rect x="149" y="165" width="18" height="14" rx="1"
-          fill="none" stroke="var(--ink4)" stroke-width="0.5" opacity="0.35"/>
-        <!-- Spec -->
-        <text x="87" y="191" font-family="'IBM Plex Mono'" font-size="4.8"
-          fill="var(--ink4)" text-anchor="middle" opacity="0.5">CRESCENDO · 122 LBS · 2'3"</text>
-      </svg>
+      <img src="Website%20Items/The%20Missfits%20--%202024%20Technical%20Binder/images/image31.png"
+           alt="Calliope — labeled robot diagram"
+           style="width:100%; height:195px; object-fit:contain; display:block;">
       <span class="status-badge" style="color:var(--emerald);">◉ completed · 2024</span>
       <span class="project-label">Calliope · FRC Team 6418</span>
     </div>
@@ -901,71 +898,9 @@
        style="left:33%; top:37%; transform:rotate(1.5deg); width:205px;">
     <div class="blueprint-card">
       <div class="blueprint-pin" style="background:var(--emerald);"></div>
-      <svg width="100%" height="210" viewBox="0 0 175 210" xmlns="http://www.w3.org/2000/svg">
-        <!-- Title -->
-        <text x="87" y="10" font-family="'IBM Plex Mono'" font-size="7" font-weight="500"
-          fill="var(--sapphire)" text-anchor="middle" opacity="0.9">DYNAMENE</text>
-        <!-- Elevator column (center vertical) -->
-        <rect x="78" y="16" width="19" height="72" rx="2"
-          fill="rgba(36,85,164,0.04)" stroke="var(--sapphire)" stroke-width="1" opacity="0.8"/>
-        <!-- Elevator carriage line -->
-        <line x1="78" y1="48" x2="97" y2="48" stroke="var(--sapphire)" stroke-width="0.7" stroke-dasharray="2 2" opacity="0.5"/>
-        <!-- 4-bar arm (upper arm) -->
-        <line x1="97" y1="26" x2="143" y2="16" stroke="var(--ink3)" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-        <!-- 4-bar parallel link -->
-        <line x1="97" y1="38" x2="143" y2="28" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
-        <!-- Link end connectors -->
-        <line x1="97" y1="26" x2="97" y2="38" stroke="var(--ink3)" stroke-width="1" opacity="0.45"/>
-        <line x1="143" y1="16" x2="143" y2="28" stroke="var(--ink3)" stroke-width="1" opacity="0.45"/>
-        <!-- Collar (end effector) -->
-        <rect x="139" y="10" width="22" height="24" rx="2"
-          fill="rgba(36,85,164,0.08)" stroke="var(--sapphire)" stroke-width="1.2" opacity="0.9"/>
-        <circle cx="146" cy="19" r="4" fill="none" stroke="var(--sapphire)" stroke-width="0.9" opacity="0.75"/>
-        <circle cx="155" cy="19" r="4" fill="none" stroke="var(--sapphire)" stroke-width="0.9" opacity="0.75"/>
-        <!-- Funnel/ramp (trapezoidal, top of frame) -->
-        <path d="M26,72 L52,54 L123,54 L132,72" fill="rgba(140,154,170,0.06)" stroke="var(--metal)" stroke-width="1" opacity="0.8"/>
-        <line x1="26" y1="72" x2="132" y2="72" stroke="var(--metal)" stroke-width="0.7" opacity="0.5"/>
-        <text x="79" y="67" font-family="'IBM Plex Mono'" font-size="5"
-          fill="var(--metal)" text-anchor="middle" opacity="0.55">ramp / funnel</text>
-        <!-- Algae removal wheels (sides) -->
-        <circle cx="14" cy="92" r="8" fill="none" stroke="var(--emerald)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
-        <text x="14" y="105" font-family="'IBM Plex Mono'" font-size="4" fill="var(--emerald)" text-anchor="middle" opacity="0.55">algae</text>
-        <circle cx="161" cy="92" r="8" fill="none" stroke="var(--emerald)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
-        <text x="161" y="105" font-family="'IBM Plex Mono'" font-size="4" fill="var(--emerald)" text-anchor="middle" opacity="0.55">algae</text>
-        <!-- Main frame -->
-        <rect x="24" y="72" width="127" height="52" rx="3"
-          fill="none" stroke="var(--ink3)" stroke-width="1.2" opacity="0.85"/>
-        <line x1="24" y1="98" x2="151" y2="98" stroke="var(--ink4)" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.25"/>
-        <line x1="87" y1="72" x2="87" y2="124" stroke="var(--ink4)" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.25"/>
-        <!-- Bumpers -->
-        <rect x="6" y="122" width="163" height="30" rx="4"
-          fill="rgba(36,85,164,0.07)" stroke="var(--sapphire)" stroke-width="1.5" opacity="0.9"/>
-        <text x="87" y="143" font-family="'IBM Plex Mono'" font-size="11" font-weight="400"
-          fill="var(--sapphire)" text-anchor="middle" letter-spacing="0.06em" opacity="0.9">6418</text>
-        <!-- Swerve modules -->
-        <rect x="6" y="150" width="22" height="18" rx="2"
-          fill="none" stroke="var(--ink4)" stroke-width="1" opacity="0.7"/>
-        <circle cx="17" cy="159" r="7" fill="none" stroke="var(--ink3)" stroke-width="0.8" opacity="0.65"/>
-        <rect x="147" y="150" width="22" height="18" rx="2"
-          fill="none" stroke="var(--ink4)" stroke-width="1" opacity="0.7"/>
-        <circle cx="158" cy="159" r="7" fill="none" stroke="var(--ink3)" stroke-width="0.8" opacity="0.65"/>
-        <rect x="8" y="152" width="18" height="14" rx="1"
-          fill="none" stroke="var(--ink4)" stroke-width="0.5" opacity="0.35"/>
-        <rect x="149" y="152" width="18" height="14" rx="1"
-          fill="none" stroke="var(--ink4)" stroke-width="0.5" opacity="0.35"/>
-        <!-- Deep climber (two-prong arms, back) -->
-        <rect x="32" y="124" width="9" height="36" rx="2"
-          fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <path d="M32,127 Q25,121 30,117" fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <rect x="134" y="124" width="9" height="36" rx="2"
-          fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <path d="M143,127 Q150,121 145,117" fill="none" stroke="var(--metal)" stroke-width="1" opacity="0.65"/>
-        <!-- Spec -->
-        <text x="87" y="176" font-family="'IBM Plex Mono'" font-size="4.8"
-          fill="var(--ink4)" text-anchor="middle" opacity="0.5">REEFSCAPE · 114 LBS · 3'5"</text>
-        <text x="87" y="183" font-family="'IBM Plex Mono'" font-size="4.5"
-          fill="var(--ink4)" text-anchor="middle" opacity="0.4">virtual 4-bar · L1–L4 coral</text>
-      </svg>
+      <img src="Website%20Items/The%20Missfits%20--%202025%20Technical%20Binder/images/image10.png"
+           alt="Dynamene — labeled robot diagram"
+           style="width:100%; height:210px; object-fit:contain; display:block;">
       <span class="status-badge" style="color:var(--emerald);">◉ completed · 2025</span>
       <span class="project-label">Dynamene · FRC Team 6418</span>
     </div>
@@ -993,24 +928,11 @@
         <div class="corkboard-note-inner">
           <div class="corkboard-note-front">
             <div class="corkboard-pin"></div>
-            <span class="note-title">Timed Automata</span>
-            <span class="note-sub">Professor Alur's time extensions; connection to timing side-channels</span>
+            <span class="note-title">Physical Intelligence</span>
+            <span class="note-sub">how robots learn dexterous, adaptive physical skills</span>
           </div>
           <div class="corkboard-note-back">
-            dense-time models where clocks reset on transitions; real-time reachability is decidable
-          </div>
-        </div>
-      </div>
-
-      <div class="corkboard-note" style="height:56px;">
-        <div class="corkboard-note-inner">
-          <div class="corkboard-note-front">
-            <div class="corkboard-pin"></div>
-            <span class="note-title">Formal AI Verification</span>
-            <span class="note-sub">how to verify learned policies formally</span>
-          </div>
-          <div class="corkboard-note-back">
-            using spec languages + SMT solvers to certify neural network behavior within bounds
+            the gap between simulation and real contact; manipulation as the hard frontier of embodied AI
           </div>
         </div>
       </div>
@@ -1034,10 +956,15 @@
   <!-- ── DETAIL PANEL ── -->
   <div id="detail-panel" class="detail-panel">
     <div class="detail-inner">
-      <button class="detail-close" id="detail-close-btn">✕</button>
-      <div class="detail-title" id="detail-title"></div>
-      <div class="detail-status" id="detail-status"></div>
-      <div class="detail-desc" id="detail-desc"></div>
+      <div class="detail-image-col" id="detail-image-col"></div>
+      <div class="detail-content-col">
+        <button class="detail-close" id="detail-close-btn">✕</button>
+        <div class="detail-title" id="detail-title"></div>
+        <div class="detail-time" id="detail-time"></div>
+        <div class="detail-status" id="detail-status"></div>
+        <div class="detail-desc" id="detail-desc"></div>
+        <div class="detail-links" id="detail-links"></div>
+      </div>
     </div>
   </div>
 
@@ -1055,61 +982,105 @@
   var projects = {
     holo: {
       title:  'Holographic Camera Display',
+      time:   '2025 — Present',
       status: '◌ In Progress',
       color:  'var(--emerald)',
-      desc:   'A layered glass panel system using laser-etched geometry and edge-coupled LED lighting to produce a holographic depth illusion. Currently investigating glass stack spacing and diffraction grating patterns for optimal image separation. Inspired by lightfield camera research.'
+      desc:   ''
     },
     linkage: {
       title:  '5-Bar Linkage / Quadruped',
+      time:   '2025',
       status: '◎ Dormant',
       color:  'var(--amber)',
-      desc:   'A 5-link planar mechanism actuated by two servo motors, designed as a single walking leg for a quadruped platform. Reached prototype stage with SolidWorks model and kinematic simulation. Paused pending motor torque budget resolution.'
+      desc:   ''
     },
     whiteboard: {
       title:  'Pull-Out Whiteboard',
+      time:   '2024',
       status: '◎ Dormant',
       color:  'var(--amber)',
-      desc:   'A wall-mounted slide-out whiteboard for a small bedroom workspace. Got as far as detailed drawings and material list before deciding the wall construction couldn't support it. Blueprints filed away, possibly revisited someday.'
+      desc:   ''
     },
     duckfling: {
       title:  'Rubber Duck Flinger',
+      time:   '2024',
       status: '◎ Dormant',
       color:  'var(--amber)',
-      desc:   'A pneumatically-actuated launching mechanism for rubber ducks, conceived during a long afternoon. Initial trajectory math was actually quite fun. Paused when it became clear the "application" was entirely questionable. Coffee stain authentic.'
+      desc:   ''
     },
     bloomboard: {
       title:  'Bloom Board',
+      time:   'May 2023 – June 2025',
       status: '◌ In Progress',
       color:  'var(--emerald)',
-      desc:   'A display of 3D printed interactive robotic flowers that gives students an anonymous way to communicate their emotional wellbeing to school administration. Each flower opens or closes via servo actuation to indicate how the student is feeling. Won 2nd place Live Conference Presentation at Polygence Symposium.'
+      desc:   ''
     },
     calliope: {
       title:  'Calliope · FRC Team 6418',
+      time:   'FRC 2024 · CRESCENDO Season',
       status: '◉ Completed · 2024',
       color:  'var(--emerald)',
-      desc:   'The Missfits\' 2024 CRESCENDO robot. 122 lbs. Ground intake under the bumper feeds into an indexer and dual-flywheel shooter; a pivoting polycarbonate hood redirects notes downward into the amp. Dual telescoping climbers for endgame elevation. Won Excellence in Engineering at San Francisco Regional.'
+      desc:   "The Missfits' 2024 CRESCENDO robot. 122 lbs. Ground intake under the bumper feeds into an indexer and dual-flywheel shooter; a pivoting polycarbonate hood redirects notes downward into the amp. Dual telescoping climbers for endgame elevation. Won Excellence in Engineering at San Francisco Regional.",
+      links: [
+        { label: '2024 Technical Binder →', url: 'Website Items/The Missfits -- 2024 Technical Binder/TheMissfits2024TechnicalBinder.html' },
+        { label: 'CAD →', url: '#' }
+      ]
     },
     dynamene: {
       title:  'Dynamene · FRC Team 6418',
+      time:   'FRC 2025 · REEFSCAPE Season',
       status: '◉ Completed · 2025',
       color:  'var(--emerald)',
-      desc:   'The Missfits\' 2025 REEFSCAPE robot. 114 lbs. Single-stage elevator with a virtual 4-bar arm and collar end effector for L1–L4 coral placement. Stationary funnel ramp for station intake, side algae-removal wheels, and a two-prong deep climber. Won Creativity Award at Silicon Valley Regional.'
+      desc:   "The Missfits' 2025 REEFSCAPE robot. 114 lbs. Single-stage elevator with a virtual 4-bar arm and collar end effector for L1–L4 coral placement. Stationary funnel ramp for station intake, side algae-removal wheels, and a two-prong deep climber. Won Creativity Award at Silicon Valley Regional.",
+      links: [
+        { label: '2025 Technical Binder →', url: 'Website Items/The Missfits -- 2025 Technical Binder/TheMissfits2025TechnicalBinder.html' },
+        { label: 'CAD →', url: '#' }
+      ]
     }
   };
 
   var panel     = document.getElementById('detail-panel');
   var titleEl   = document.getElementById('detail-title');
+  var timeEl    = document.getElementById('detail-time');
   var statusEl  = document.getElementById('detail-status');
   var descEl    = document.getElementById('detail-desc');
+  var linksEl   = document.getElementById('detail-links');
+  var imageCol  = document.getElementById('detail-image-col');
   var closeBtn  = document.getElementById('detail-close-btn');
 
-  function openPanel(key) {
+  function openPanel(key, cardEl) {
     var data = projects[key];
     if (!data) return;
     titleEl.textContent  = data.title;
+    timeEl.textContent   = data.time || '';
     statusEl.textContent = data.status;
     statusEl.style.color = data.color;
-    descEl.textContent   = data.desc;
+    descEl.textContent   = data.desc || '';
+
+    linksEl.innerHTML = '';
+    if (data.links) {
+      data.links.forEach(function (link) {
+        var a = document.createElement('a');
+        a.href = link.url;
+        a.textContent = link.label;
+        a.className = 'detail-link';
+        a.target = '_blank';
+        a.rel = 'noopener';
+        linksEl.appendChild(a);
+      });
+    }
+
+    imageCol.innerHTML = '';
+    if (cardEl) {
+      var visual = cardEl.querySelector('.blueprint-card, .sketch-card, .sketchbook, .crumpled-card');
+      if (visual) {
+        var clone = visual.cloneNode(true);
+        var pin = clone.querySelector('.blueprint-pin');
+        if (pin) pin.remove();
+        imageCol.appendChild(clone);
+      }
+    }
+
     panel.classList.add('open');
   }
 
@@ -1119,13 +1090,22 @@
 
   // Click on desk items with data-project
   document.querySelectorAll('.desk-item[data-project]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      openPanel(el.getAttribute('data-project'));
+    el.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openPanel(el.getAttribute('data-project'), el);
     });
   });
 
+  // Click outside (on desk surface) closes panel
+  document.querySelector('.desk-surface').addEventListener('click', function () {
+    closePanel();
+  });
+
   // Close button
-  closeBtn.addEventListener('click', closePanel);
+  closeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closePanel();
+  });
 
   // Escape key
   document.addEventListener('keydown', function (e) {
@@ -1134,7 +1114,8 @@
 
   // Corkboard note click: toggle flipped
   document.querySelectorAll('.corkboard-note').forEach(function (note) {
-    note.addEventListener('click', function () {
+    note.addEventListener('click', function (e) {
+      e.stopPropagation();
       note.classList.toggle('flipped');
     });
   });
@@ -1146,9 +1127,14 @@
       return document.documentElement.getAttribute('data-theme') === 'dark';
     };
     btn.textContent = isDark() ? '◑ Light' : '◐ Dark';
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
       var dark = !isDark();
-      document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
       localStorage.setItem('theme', dark ? 'dark' : 'light');
       btn.textContent = dark ? '◑ Light' : '◐ Dark';
     });

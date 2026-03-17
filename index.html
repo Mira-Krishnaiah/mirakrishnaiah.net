@@ -125,31 +125,29 @@
   text-align: left;
 }
 
-/* Tooltip for margin note */
-.margin-note[data-tooltip] {
+/* Name block — top left */
+.name-block {
   position: absolute;
-}
-.margin-note[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: calc(100% + 0.75rem);
-  top: 0;
-  background: var(--bg2);
-  border: 1px solid var(--rule);
-  color: var(--ink3);
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-style: normal;
-  letter-spacing: 0.05em;
-  padding: 0.3rem 0.6rem;
-  white-space: nowrap;
+  top: 5rem; left: 3rem;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 100;
+  animation: fadeIn 1s ease 1.5s forwards;
+  z-index: 10;
 }
-.margin-note[data-tooltip]:hover::after {
-  opacity: 1;
+.name-block-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.name-block-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--ink3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
 }
 
 /* DFA canvas */
@@ -175,7 +173,7 @@
 .terminal-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  color: var(--ink4);
+  color: var(--ink3);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
@@ -207,7 +205,7 @@
   caret-color: var(--sapphire);
 }
 #dfa-input:focus { border-bottom-color: var(--sapphire); }
-#dfa-input::placeholder { color: var(--ink4); letter-spacing: 0.1em; }
+#dfa-input::placeholder { color: var(--ink3); letter-spacing: 0.1em; }
 
 #dfa-run {
   font-family: var(--font-mono);
@@ -236,7 +234,7 @@
 }
 .status-accept { color: var(--accept); }
 .status-reject { color: var(--reject); }
-.status-idle   { color: var(--ink4); }
+.status-idle   { color: var(--ink3); }
 
 /* Dimension line SVG overlay */
 #dim-svg {
@@ -278,13 +276,18 @@
   <canvas id="dfa-canvas"></canvas>
 
   <!-- Margin annotations -->
-  <div class="margin-note margin-note-1" data-tooltip="— cf. Ghrist, MTM">
+  <!-- Name block — top left -->
+  <div class="name-block">
+    <div class="name-block-name">Mira Krishnaiah</div>
+    <div class="name-block-sub">AI + MechE · UPenn</div>
+  </div>
+
+  <div class="margin-note margin-note-1">
     state machines<br>all the way<br>down
   </div>
 
   <div class="margin-note margin-note-2">
-    δ(q, σ) → q′<br>
-    <span style="color:var(--ink4);font-size:0.5rem;">transitions fire<br>on each character</span>
+    δ(q, σ) → q′
   </div>
 
   <!-- Input terminal -->

@@ -159,7 +159,7 @@ function drawTransitionArrow(fromS, toS, label, active, color) {
   const ey = t.y - uy * (GEAR_R[toS.id] + 4);
 
   ctx.save();
-  ctx.strokeStyle = active ? color : cssVar('--rule');
+  ctx.strokeStyle = active ? color : cssVar('--ink3');
   ctx.lineWidth   = active ? 1.5 : 0.8;
   ctx.globalAlpha = active ? 1 : 0.6;
   ctx.setLineDash(active ? [] : [3, 4]);
@@ -180,14 +180,14 @@ function drawTransitionArrow(fromS, toS, label, active, color) {
   ctx.lineTo(ax + px * hWid, ay + py * hWid);
   ctx.lineTo(ax - px * hWid, ay - py * hWid);
   ctx.closePath();
-  ctx.fillStyle = active ? color : cssVar('--rule');
+  ctx.fillStyle = active ? color : cssVar('--ink3');
   ctx.fill();
 
   // Label
   const lx = (sx + ex) / 2 - uy * 14;
   const ly = (sy + ey) / 2 + ux * 14;
   ctx.globalAlpha  = 1;
-  ctx.fillStyle    = active ? color : cssVar('--ink4');
+  ctx.fillStyle    = active ? color : cssVar('--ink3');
   ctx.font         = (active ? 500 : 300) + ' 10px ' + cssVar('--font-mono').split(',')[0];
   ctx.textAlign    = 'center';
   ctx.textBaseline = 'middle';
@@ -417,8 +417,8 @@ function drawDFA() {
       alpha       = 1;
     } else {
       gearColor   = 'transparent';
-      strokeColor = rule;
-      alpha       = 0.7;
+      strokeColor = cssVar('--metal');
+      alpha       = 0.85;
     }
 
     drawGear(p.x, p.y, outerR, innerR, GEAR_TEETH[i], gearAngles[i], gearColor, strokeColor, alpha);

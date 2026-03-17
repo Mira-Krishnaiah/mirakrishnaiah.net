@@ -99,11 +99,11 @@
 /* ── Section headers ── */
 .section-head {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 400;
+  font-size: 0.65rem;
+  font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ink3);
+  color: var(--ink2);
   margin-bottom: 1rem;
 }
 
@@ -114,7 +114,7 @@
 
 .entry-title {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--ink);
   margin-bottom: 0.15rem;
@@ -122,7 +122,7 @@
 
 .entry-meta {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   color: var(--ink3);
   letter-spacing: 0.04em;
   margin-bottom: 0.45rem;
@@ -131,7 +131,7 @@
 
 .entry-body {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--ink2);
   line-height: 1.65;
 }
@@ -196,7 +196,7 @@
 }
 .course-list {
   font-family: var(--font-body);
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--ink2);
   line-height: 1.7;
 }
@@ -210,6 +210,31 @@
   font-size: 0.52rem;
   color: var(--ink4);
   letter-spacing: 0.08em;
+}
+
+/* ── Margin aside notes ── */
+.margin-aside {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-style: italic;
+  color: var(--ink3);
+  line-height: 1.5;
+  max-width: 120px;
+  pointer-events: none;
+}
+.margin-aside.left {
+  right: calc(100% + 1.2rem);
+  text-align: right;
+  top: 0.1rem;
+}
+.margin-aside.right {
+  left: calc(100% + 1.2rem);
+  text-align: left;
+  top: 0.1rem;
+}
+@media (max-width: 900px) {
+  .margin-aside { display: none; }
 }
 </style>
 </head>
@@ -272,7 +297,9 @@
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry" style="position:relative;">
+      <span class="margin-aside left">Learned how to 1. Plan thoroughly, 2. Execute aggressively, 3. Communicate with intention</span>
+      <span class="margin-aside right">small team, high stakes, real engineering under pressure, cross-functional collaboration at competition speed</span>
       <div class="entry-title">The Missfits (Team 6418) · FIRST Robotics</div>
       <div class="entry-meta">Team President and Head of Design · August 2023 – August 2025</div>
       <div class="entry-body">
@@ -290,7 +317,8 @@
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry" style="position:relative;">
+      <span class="margin-aside right">First ML model programmed!</span>
       <div class="entry-title">Summer Research Academies · UCSB</div>
       <div class="entry-meta">Machine Learning Researcher · Summer 2023</div>
       <div class="entry-body">
@@ -301,7 +329,8 @@
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry" style="position:relative;">
+      <span class="margin-aside right">First introduced to the concept of 'Human Computer Interfaces'</span>
       <div class="entry-title">ATLAS Institute · CU Boulder</div>
       <div class="entry-meta">Haptic Design Researcher · Summer 2022</div>
       <div class="entry-body">
@@ -348,7 +377,8 @@
     <div class="section-head">Coursework</div>
 
     <div class="entry">
-      <div class="course-group">
+      <div class="course-group" style="position:relative;">
+        <span class="margin-aside left">6 years of formal math training!</span>
         <div class="course-area">Mathematics</div>
         <div class="course-list">
           Multivariate Calculus · Linear Algebra · Number Theory · Discrete Probability ·
@@ -357,7 +387,8 @@
         </div>
       </div>
 
-      <div class="course-group">
+      <div class="course-group" style="position:relative;">
+        <span class="margin-aside left">followed The Elements of Computing Systems end-to-end</span>
         <div class="course-area">Computer Science</div>
         <div class="course-list">
           Computing Systems Design · Artificial Intelligence Lab
