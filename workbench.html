@@ -29,6 +29,20 @@
     repeating-linear-gradient(180deg, transparent, transparent 80px, rgba(255,255,255,0.02) 80px, rgba(255,255,255,0.02) 81px);
 }
 
+/* ─── Desk section label ─── */
+.desk-section-label {
+  position: absolute;
+  top: 14px;
+  left: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  z-index: 5;
+  pointer-events: none;
+}
+
 /* ─── Desk Items ─── */
 .desk-item {
   position: absolute;
@@ -60,7 +74,7 @@
 }
 
 .project-label {
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   color: var(--ink2);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -243,7 +257,7 @@
 }
 .corkboard-title {
   font-family: var(--font-mono);
-  font-size: 0.48rem;
+  font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--amber);
@@ -327,6 +341,36 @@
 .corkboard-note:nth-child(2) { transform: rotate(1deg); }
 .corkboard-note:nth-child(3) { transform: rotate(-0.5deg); }
 .corkboard-note:nth-child(4) { transform: rotate(2deg); }
+
+/* ─── Highlights ─── */
+.highlights {
+  padding: 4.2rem 2rem 1.6rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+}
+.highlights-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  display: block;
+  margin-bottom: 1.1rem;
+}
+.highlights-row {
+  display: flex;
+  gap: 1.4rem;
+}
+.highlights-item {
+  cursor: none;
+  width: 205px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.highlights-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
 
 /* ─── Detail Panel ─── */
 .detail-panel {
@@ -455,12 +499,45 @@
   <div class="nav-right">
     <a href="workbench.html" class="nav-link active">Workbench</a>
     <a href="resume.html" class="nav-link">Resume</a>
+    <a href="blog.html" class="nav-link">Notes</a>
     <button id="theme-btn">◐ Dark</button>
   </div>
 </nav>
 
+<!-- HIGHLIGHTS -->
+<section class="highlights">
+  <span class="highlights-label">featured builds</span>
+  <div class="highlights-row">
+
+    <div class="highlights-item" data-project="calliope">
+      <div class="blueprint-card">
+        <div class="blueprint-pin" style="background:var(--emerald);"></div>
+        <img src="images/calliope-diagram.png"
+             alt="Calliope — labeled robot diagram"
+             style="width:100%; height:195px; object-fit:contain; display:block;">
+        <span class="status-badge" style="color:var(--emerald);">◉ completed · 2024</span>
+        <span class="project-label">Calliope · FRC Team 6418</span>
+      </div>
+    </div>
+
+    <div class="highlights-item" data-project="dynamene">
+      <div class="blueprint-card">
+        <div class="blueprint-pin" style="background:var(--emerald);"></div>
+        <img src="images/dynamene-diagram.png"
+             alt="Dynamene — labeled robot diagram"
+             style="width:100%; height:210px; object-fit:contain; display:block;">
+        <span class="status-badge" style="color:var(--emerald);">◉ completed · 2025</span>
+        <span class="project-label">Dynamene · FRC Team 6418</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- DESK SURFACE -->
 <div class="desk-surface">
+
+  <span class="desk-section-label">sidequest projects</span>
 
   <!-- ── 1. HOLOGRAPHIC CAMERA SKETCHBOOK ── -->
   <div class="desk-item" data-project="holo"
@@ -624,7 +701,7 @@
         <line x1="110" y1="35" x2="107" y2="39" stroke="var(--ink4)" stroke-width="0.8" opacity="0.4"/>
       </svg>
       <span class="status-badge amber">◎ dormant</span>
-      <span class="project-label" style="font-size:0.48rem;">Rubber Duck Flinger</span>
+      <span class="project-label" style="font-size:0.58rem;">Rubber Duck Flinger</span>
     </div>
   </div>
 
@@ -880,32 +957,6 @@
     </div>
   </div>
 
-  <!-- ── 10. CALLIOPE — FRC 2024 (COMPLETED) ── -->
-  <div class="desk-item" data-project="calliope"
-       style="left:4%; top:40%; transform:rotate(-1.5deg); width:205px;">
-    <div class="blueprint-card">
-      <div class="blueprint-pin" style="background:var(--emerald);"></div>
-      <img src="images/calliope-diagram.png"
-           alt="Calliope — labeled robot diagram"
-           style="width:100%; height:195px; object-fit:contain; display:block;">
-      <span class="status-badge" style="color:var(--emerald);">◉ completed · 2024</span>
-      <span class="project-label">Calliope · FRC Team 6418</span>
-    </div>
-  </div>
-
-  <!-- ── 10. DYNAMENE — FRC 2025 (COMPLETED) ── -->
-  <div class="desk-item" data-project="dynamene"
-       style="left:33%; top:37%; transform:rotate(1.5deg); width:205px;">
-    <div class="blueprint-card">
-      <div class="blueprint-pin" style="background:var(--emerald);"></div>
-      <img src="images/dynamene-diagram.png"
-           alt="Dynamene — labeled robot diagram"
-           style="width:100%; height:210px; object-fit:contain; display:block;">
-      <span class="status-badge" style="color:var(--emerald);">◉ completed · 2025</span>
-      <span class="project-label">Dynamene · FRC Team 6418</span>
-    </div>
-  </div>
-
   <!-- ── CORKBOARD ── -->
   <div class="corkboard" style="right:3%; top:10%; width:220px; height:300px;">
     <div class="corkboard-title">Current Obsessions</div>
@@ -1039,6 +1090,325 @@
     }
   };
 
+  // ── Reveal modal project data ──
+  var revealProjects = {
+    dynamene: {
+      title: 'Dynamene \u00b7 FRC Team 6418',
+      subtitle: 'FRC 2025 \u00b7 REEFSCAPE Season',
+      status: '\u25c9 completed \u00b7 2025',
+      statusClass: 'emerald',
+      tagline: '105 lbs \u00b7 virtual 4-bar arm \u00b7 co-axial power transmission \u00b7 2nd NorCal Invitational',
+      links: [
+        { label: 'Technical Binder \u2192', href: 'Website Items/The Missfits -- 2025 Technical Binder/TheMissfits2025TechnicalBinder.html' },
+        { label: 'CAD \u2192', href: '#' }
+      ],
+      sections: [
+        {
+          label: 'OVERVIEW',
+          images: [
+            { src: 'dynamene-diagram.png', label: 'full robot' }
+          ],
+          annotation: 'DYNAMENE \u00b7 2025 REEFSCAPE',
+          body: '<p>The Missfits\u2019 2025 REEFSCAPE robot. 114 lbs. Single-stage elevator with a virtual 4-bar arm and collar end effector for L1\u2013L4 coral placement. Stationary funnel ramp for station intake, side algae-removal wheels, and a two-prong deep climber. Won Creativity Award at Silicon Valley Regional.</p><p>Fifteen people, two-car garage, four practice fields across the Bay Area, a robot that extended to nearly 7 feet. Building DYNAMENE taught me what managing real constraints actually looks like: not trying to do everything, making hard calls about what to cut, and pushing hard on the few things that matter.</p>'
+        },
+        {
+          label: 'THE ARM',
+          images: [
+            { src: 'dynamene-arm.png',          label: 'arm assembly' },
+            { src: 'dynamene-arm-shoulder.png',  label: 'shoulder detail' },
+            { src: 'dynamene-arm-labeled.png',   label: 'power transmission' }
+          ],
+          annotation: 'hex shaft inside a SplineXL, same axis',
+          body: '<p>We needed horizontal reach outside frame perimeter to score coral reliably. The end effector had to stay at the same angle throughout its motion \u2014 a traditional 4-bar linkage property. We went virtual: instead of four physical bars, chain and belt maintain the orientation, which allowed full 360\u00b0 rotation and cleaner packaging.</p><p>The hard part was power transmission. Three things needed independent control \u2014 arm rotation, end-effector orientation, and roller power \u2014 all transmitted from motors at the robot\u2019s base through a single pivot point. Our solution: a hex shaft running inside a SplineXL shaft, both on the same axis. The arm sprocket floats on bearings around the SplineXL. The 4-bar pulley attaches directly to the SplineXL. The roller pulleys attach to the hex shaft inside.</p><p>Switching from chains to belts was the unlock \u2014 no tensioning, far more flexibility as we iterated. Five major collar redesigns. By the final version we\u2019d cut weight, reduced cantilevering, and could score reliably across all four reef levels. It won us the Creativity Award.</p>'
+        },
+        {
+          label: 'THE CLIMBER',
+          images: [
+            { src: 'dynamene-climber.png',     label: 'hook assembly' },
+            { src: 'dynamene-climber-top.png', label: 'hook geometry' }
+          ],
+          annotation: 'didn\u2019t work until iteration 7. then it was our best mechanism',
+          body: '<p>This was the hardest thing I worked on all season, and we almost cut it entirely.</p><p>We came in 20 lbs over weight. The center of gravity sat right at the edge of the ramp \u2014 if we pulled the cage too far back, we\u2019d tip. The elevator was so close to where the climber needed to pivot that we couldn\u2019t swing out without hitting something critical. Three brutal constraints with no obvious solution.</p><p><strong>Iterations 1\u20133:</strong> the arm tore at the motor mount, only pulled down 4 inches, and tilted on every climb because the cage wasn\u2019t flush against the hooks. We calculated we\u2019d need 20 lbs of ballast to fix it. We didn\u2019t have 20 lbs to spare. We took iteration 3 to our first competition anyway.</p><p><strong>Iterations 4\u20136 (post-competition):</strong> pushed the climber forward, made the arm skinnier and shorter, added a 2-stage gearbox. Pulled down 9 inches instead of 4. Two pounds lighter. New problems: the cage slipped, the chain hit the elevator, alignment was finicky.</p><p><strong>Iterations 7\u20138:</strong> shifted the hooks back 3.5 inches total, added a vertical bolt to the back hook, embedded magnets and silicone grip tape, added a side funnel to help with alignment. By iteration 8 we could climb in 8 seconds \u2014 even during imperfect alignments. It added 10 points + 1 Ranking Point to every match and made us a highly sought alliance partner.</p><p>Three testing sessions. Thirty-minute drives to get to a field with a cage. Every iteration had to count.</p>'
+        },
+        {
+          label: 'RAMP + COLLAR',
+          images: [
+            { src: 'dynamene-collar.png', label: 'collar assembly' }
+          ],
+          annotation: 'the point was for this to be unremarkable',
+          body: '<p>The ramp was our coral intake pathway \u2014 a stationary funnel guiding coral from the loading station into the collar. The collar was the end effector: rollers that grabbed and released coral at the arm\u2019s tip.</p><p>Both went through real iteration. The ramp got a curved polycarb cover to stop coral from bouncing out, asymmetric funnel pieces to guide coral in straight, and a passively-deploying flap (hinges + magnets) that extended at match start to widen the intake window. The collar\u2019s final version had the tubestock cut at angles so coral could pivot cleanly when scoring at L4 without catching on the front roller.</p><p>Neither of these is the interesting mechanism. That was the point. The arm and climber needed to be the hard problems \u2014 everything else needed to just work.</p>'
+        },
+        {
+          label: 'RESULTS',
+          images: [
+            { src: 'dynamene-competition.jpeg', label: 'NorCal Invitational' }
+          ],
+          annotation: '2nd NorCal Invitational \u00b7 Creativity Award \u00b7 48 avg pts/match',
+          body: '<p>2nd place at the Northern California Regional Invitational. Creativity Award for the virtual 4-bar arm. 12-second cycle times. 48-point average per match. The climber \u2014 which almost didn\u2019t exist \u2014 added a Ranking Point to nearly every match.</p>'
+        }
+      ]
+    },
+    calliope: {
+      title: 'Calliope \u00b7 FRC Team 6418',
+      subtitle: 'FRC 2024 \u00b7 CRESCENDO Season',
+      status: '\u25c9 completed \u00b7 2024',
+      statusClass: 'emerald',
+      tagline: '122 lbs \u00b7 under-bumper intake \u00b7 dual-flywheel shooter \u00b7 Engineering Excellence',
+      links: [
+        { label: 'Technical Binder \u2192', href: 'Website Items/The Missfits -- 2024 Technical Binder/TheMissfits2024TechnicalBinder.html' },
+        { label: 'CAD \u2192', href: '#' }
+      ],
+      sections: [
+        {
+          label: 'OVERVIEW',
+          images: [
+            { src: 'calliope-diagram.png', label: 'full robot' }
+          ],
+          annotation: 'CALLIOPE \u00b7 2024 CRESCENDO',
+          body: '<p>The Missfits\u2019 2024 CRESCENDO robot. 122 lbs. Ground intake under the bumper feeds into an indexer and dual-flywheel shooter; a pivoting polycarbonate hood redirects notes downward into the amp. Dual telescoping climbers for endgame elevation. Won Excellence in Engineering at San Francisco Regional.</p><p>The less visible result: by the end of the season, I wasn\u2019t asking mentors what to do. I was driving the design process myself. CALLIOPE was built around doing a few things very well. It taught me that constraint is a design tool, not just a limitation \u2014 and that foundation is why DYNAMENE was possible.</p>'
+        },
+        {
+          label: 'THE PIVOT',
+          images: [
+            { src: 'calliope-diagram.png',  label: 'full robot' },
+            { src: 'calliope-pivot-1.png',  label: 'initial design #1' },
+            { src: 'calliope-pivot-2.png',  label: 'initial design #2 \u2014 fixed indexer' },
+            { src: 'calliope-pivot-3.png',  label: 'final design' }
+          ],
+          annotation: 'fit the whole robot in a \u201922 outback',
+          body: '<p>Coming out of kickoff we had arm concepts \u2014 4-bar linkages, single-pivot arms, a fixed shooter with a complex intake. None of them fit. Everything was too tall, too complex, or too far beyond what a team that just learned Onshape could build reliably.</p><p>The one idea that kept surviving was an under-the-bumper intake. Pull notes in from below instead of reaching out. Keep everything inside frame perimeter. It was compact, it was simple, and it meant we could design a robot that fit in a Subaru for transport to practice fields \u2014 because we didn\u2019t have a field of our own.</p><p>We were a week into build season when we committed to the pivot. It was the right call.</p>'
+        },
+        {
+          label: 'INDEXER + SHOOTER',
+          images: [
+            { src: 'calliope-indexer.png', label: 'indexer + shooter' }
+          ],
+          annotation: 'first mechanisms I designed start to finish',
+          body: '<p>I took complete ownership of these two \u2014 the first mechanisms I\u2019d ever designed entirely on my own. The indexer\u2019s job was simple: take a note from the intake, hold it at exactly the right position for the shooter. A beam-break sensor handled the stopping automatically. Drivers got haptic feedback the moment a note was detected. No guessing, no fumbling.</p><p>Designing both taught me that simplicity isn\u2019t about fewer parts \u2014 it\u2019s about making sure you can diagnose and fix things in two minutes between matches. Every plate, standoff, and roller was accessible. We never had a catastrophic failure because of it.</p>'
+        },
+        {
+          label: 'THE HOOD',
+          images: [
+            { src: 'calliope-hood.png', label: 'hood mechanism' }
+          ],
+          annotation: 'iteration 1 genuinely looked like a crustacean',
+          body: '<p>The hood redirected notes from the horizontal shooter downward into the amp. Six major iterations before it worked reliably.</p><p><strong>Iterations 1\u20133</strong> established the concept but the plates bent, the angle was wrong, and notes kept stalling. <strong>Iteration 4</strong> fixed the flexing with polycarb and tubestock. <strong>Iteration 5</strong> added polycord across all four top rollers \u2014 no more stalling, no more notes stopping halfway through.</p><p>At our first competition (SFR) the hood worked \u2014 we never missed an amp shot \u2014 but alignment took several seconds each time because the hood width almost exactly matched the amp opening. Zero margin. <strong>Iteration 6:</strong> split the hood plates and connected them with tubestock, reducing the part that entered the amp by 4 inches. Alignment became fast enough to matter.</p>'
+        },
+        {
+          label: 'RESULTS',
+          images: [
+            { src: 'calliope-competition.jpg', label: 'SFR competition' }
+          ],
+          annotation: 'first engineering award in team history',
+          body: '<p>Engineering Excellence award \u2014 first in team history. Playoffs for the first time in years. Never missed an amp shot throughout competition.</p>'
+        }
+      ]
+    }
+  };
+
+  // ── Create modal elements once ──
+  var revealBackdrop = document.createElement('div');
+  revealBackdrop.className = 'reveal-backdrop';
+  revealBackdrop.id = 'reveal-backdrop';
+
+  var revealModal = document.createElement('div');
+  revealModal.className = 'reveal-modal';
+  revealModal.id = 'reveal-modal';
+  revealModal.innerHTML =
+    '<div class="reveal-close-row">' +
+      '<button class="reveal-close" id="reveal-close">\u2715</button>' +
+    '</div>' +
+    '<div class="reveal-inner">' +
+      '<div class="reveal-image-panel" id="reveal-image-panel">' +
+        '<div class="reveal-image-wrap" id="reveal-image-wrap"></div>' +
+        '<div class="reveal-thumbs hidden" id="reveal-thumbs"></div>' +
+        '<p class="reveal-annotation" id="reveal-annotation"></p>' +
+      '</div>' +
+      '<div class="reveal-content-panel" id="reveal-content-panel">' +
+        '<h2 class="reveal-title" id="reveal-title"></h2>' +
+        '<p class="reveal-subtitle" id="reveal-subtitle"></p>' +
+        '<p class="reveal-tagline" id="reveal-tagline"></p>' +
+        '<div id="reveal-sections"></div>' +
+        '<div class="reveal-links" id="reveal-links"></div>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(revealBackdrop);
+  document.body.appendChild(revealModal);
+
+  // Cache reveal DOM references
+  var revealImageWrap  = document.getElementById('reveal-image-wrap');
+  var revealThumbs     = document.getElementById('reveal-thumbs');
+  var revealAnnotation = document.getElementById('reveal-annotation');
+  var revealTitle      = document.getElementById('reveal-title');
+  var revealSubtitle   = document.getElementById('reveal-subtitle');
+  var revealTagline    = document.getElementById('reveal-tagline');
+  var revealSections   = document.getElementById('reveal-sections');
+  var revealLinks      = document.getElementById('reveal-links');
+  var revealCloseBtn   = document.getElementById('reveal-close');
+  var revealIsOpen     = false;
+
+  function crossfadeImage(src) {
+    revealImageWrap.querySelectorAll('img').forEach(function (img) {
+      img.classList.toggle('active', img.getAttribute('data-src') === src);
+    });
+  }
+
+  function rebuildThumbs(images, activeIdx) {
+    revealThumbs.innerHTML = '';
+    if (images.length <= 1) {
+      revealThumbs.classList.add('hidden');
+      return;
+    }
+    revealThumbs.classList.remove('hidden');
+    images.forEach(function (imgData, i) {
+      var thumb = document.createElement('img');
+      thumb.src = 'images/' + imgData.src;
+      thumb.className = 'reveal-thumb' + (i === activeIdx ? ' active' : '');
+      thumb.title = imgData.label;
+      thumb.setAttribute('data-idx', String(i));
+      (function (d) {
+        thumb.addEventListener('click', function () {
+          revealThumbs.querySelectorAll('.reveal-thumb').forEach(function (t) {
+            t.classList.remove('active');
+          });
+          thumb.classList.add('active');
+          crossfadeImage(d.src);
+        });
+      }(imgData));
+      revealThumbs.appendChild(thumb);
+    });
+  }
+
+  function openSection(secEl, secData) {
+    revealSections.querySelectorAll('.reveal-section').forEach(function (s) {
+      s.classList.remove('open');
+    });
+    secEl.classList.add('open');
+    crossfadeImage(secData.images[0].src);
+    rebuildThumbs(secData.images, 0);
+    revealAnnotation.textContent = secData.annotation;
+  }
+
+  function openReveal(projectId) {
+    var data = revealProjects[projectId];
+    if (!data) return;
+
+    // Populate header
+    revealTitle.textContent    = data.title;
+    revealSubtitle.textContent = data.subtitle;
+    revealTagline.textContent  = data.tagline;
+
+    // Status badge — remove previous, inject after subtitle
+    var prevBadge = revealModal.querySelector('.reveal-status-badge');
+    if (prevBadge) prevBadge.remove();
+    var badge = document.createElement('span');
+    badge.className = 'status-badge ' + data.statusClass + ' reveal-status-badge';
+    badge.textContent = data.status;
+    badge.style.display = 'block';
+    badge.style.marginBottom = '4px';
+    revealSubtitle.insertAdjacentElement('afterend', badge);
+
+    // Preload all images
+    data.sections.forEach(function (sec) {
+      sec.images.forEach(function (imgData) {
+        var img = new Image();
+        img.src = 'images/' + imgData.src;
+      });
+    });
+
+    // Build stacked image elements (one per unique src across all sections)
+    revealImageWrap.innerHTML = '';
+    var allSrcs = [];
+    data.sections.forEach(function (sec) {
+      sec.images.forEach(function (imgData) {
+        if (allSrcs.indexOf(imgData.src) === -1) allSrcs.push(imgData.src);
+      });
+    });
+    allSrcs.forEach(function (src) {
+      var img = document.createElement('img');
+      img.src = 'images/' + src;
+      img.setAttribute('data-src', src);
+      img.alt = src;
+      revealImageWrap.appendChild(img);
+    });
+
+    // Build accordion sections
+    revealSections.innerHTML = '';
+    data.sections.forEach(function (sec) {
+      var secEl = document.createElement('div');
+      secEl.className = 'reveal-section';
+
+      var header = document.createElement('div');
+      header.className = 'reveal-section-header';
+      var labelSpan = document.createElement('span');
+      labelSpan.textContent = sec.label;
+      var chevron = document.createElement('span');
+      chevron.className = 'reveal-chevron';
+      chevron.textContent = '\u25b6';
+      header.appendChild(labelSpan);
+      header.appendChild(chevron);
+
+      var body = document.createElement('div');
+      body.className = 'reveal-section-body';
+      body.innerHTML = sec.body;
+
+      secEl.appendChild(header);
+      secEl.appendChild(body);
+      revealSections.appendChild(secEl);
+
+      (function (el, d) {
+        header.addEventListener('click', function () {
+          openSection(el, d);
+        });
+      }(secEl, sec));
+    });
+
+    // Build links
+    revealLinks.innerHTML = '';
+    data.links.forEach(function (link) {
+      var a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.label;
+      a.className = 'reveal-link';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      revealLinks.appendChild(a);
+    });
+
+    // Open first section by default
+    var firstSecEl = revealSections.querySelector('.reveal-section');
+    if (firstSecEl) openSection(firstSecEl, data.sections[0]);
+
+    // Show modal
+    revealBackdrop.classList.add('open');
+    revealModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    revealIsOpen = true;
+  }
+
+  function closeReveal() {
+    revealBackdrop.classList.remove('open');
+    revealModal.classList.remove('open');
+    document.body.style.overflow = '';
+    revealIsOpen = false;
+    // Reset after transition so next open starts clean
+    setTimeout(function () {
+      revealSections.innerHTML = '';
+      revealImageWrap.innerHTML = '';
+      revealThumbs.innerHTML = '';
+      revealThumbs.classList.add('hidden');
+      revealAnnotation.textContent = '';
+    }, 280);
+  }
+
+  // Reveal event listeners
+  revealCloseBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closeReveal();
+  });
+  revealBackdrop.addEventListener('click', closeReveal);
+
   var panel     = document.getElementById('detail-panel');
   var titleEl   = document.getElementById('detail-title');
   var timeEl    = document.getElementById('detail-time');
@@ -1088,11 +1458,16 @@
     panel.classList.remove('open');
   }
 
-  // Click on desk items with data-project
-  document.querySelectorAll('.desk-item[data-project]').forEach(function (el) {
+  // Click on desk items and highlights items with data-project
+  document.querySelectorAll('.desk-item[data-project], .highlights-item[data-project]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.stopPropagation();
-      openPanel(el.getAttribute('data-project'), el);
+      var key = el.getAttribute('data-project');
+      if (revealProjects[key]) {
+        openReveal(key);
+      } else {
+        openPanel(key, el);
+      }
     });
   });
 
@@ -1109,7 +1484,9 @@
 
   // Escape key
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closePanel();
+    if (e.key === 'Escape') {
+      if (revealIsOpen) { closeReveal(); } else { closePanel(); }
+    }
   });
 
   // Corkboard note click: toggle flipped
